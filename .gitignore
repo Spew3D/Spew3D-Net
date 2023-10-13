@@ -1,0 +1,7 @@
+*.o
+*.bin
+*.so
+vgcore.*
+/include/spew3d.h
+/include/spew3dweb.h
+/include/spew3dnet.h
