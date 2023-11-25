@@ -25,6 +25,11 @@ amalgamate: update-vendor-if-needed
 	rm -f .spew3d_ifdef
 	rm -f .spew3d_ifndef
 
+reset-deps:
+	git submodule foreach --recursive git reset --hard && git submodule foreach --recursive git clean -xfd && git submodule update --init
+	cd vendor/Spew3D/ && $(MAKE) reset-deps && $(MAKE) clean
+	cd vendor/Spew3D-Web/ && $(MAKE) reset=deps && $(MAKE) clean
+
 build-tests:
 	cd examples && $(MAKE) clean && $(MAKE) CC="$(CC)"
 
@@ -36,8 +41,8 @@ update-vendor-if-needed:
 
 update-vendor:
 	@if [ ! -e "vendor/Spew3D/AUTHORS.md" ]; then git submodule update --init; fi
-	cd vendor/Spew3D/ && make amalgamate
-	cd vendor/Spew3D-Web/ && make amalgamate
+	cd vendor/Spew3D/ && $(MAKE) amalgamate
+	cd vendor/Spew3D-Web/ && $(MAKE) amalgamate
 
 unittests:
 	echo "TESTS: $(UNITTEST_SOURCES) | $(UNITTEST_BASENAMES)"
