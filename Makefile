@@ -28,7 +28,7 @@ amalgamate: update-vendor-if-needed
 reset-deps:
 	git submodule foreach --recursive git reset --hard && git submodule foreach --recursive git clean -xfd && git submodule update --init
 	cd vendor/Spew3D/ && $(MAKE) reset-deps && $(MAKE) clean
-	cd vendor/Spew3D-Web/ && $(MAKE) reset=deps && $(MAKE) clean
+	cd vendor/Spew3D-Web/ && $(MAKE) reset-deps && $(MAKE) clean
 
 build-tests:
 	cd examples && $(MAKE) clean && $(MAKE) CC="$(CC)"
